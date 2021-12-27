@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -32,9 +33,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s you favorite color?',
-      'What\'s your favorite animal?',
+    const questions = [
+      {
+        'QuestionText': 'What\'s you favorite color?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'QuestionText': 'What\'s you favorite animal?',
+        'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      },
+      {
+        'QuestionText': 'What\'s you favorite instructor?',
+        'answers': ['Chiara', 'Andrea', 'Giuseppe', 'Teresa'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
@@ -43,23 +54,15 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questions.elementAt(_questionIndex)),
-            RaisedButton(
-              child: Text('Answer 1'),
-              onPressed:
-                  _answerQuestion, //we are passing a pointer to the fuction that we want to execute when a button is pressed, so i dont need the () because otherwise the fuction is called instatly and the result is passed to onpressed
+            Question(
+              questions[_questionIndex]['QuestionText'],
             ),
-            RaisedButton(
-              child: Text('Answer 2'),
-              onPressed: () => print('Answer 2 chosen'),
-            ),
-            RaisedButton(
-              child: Text('Answer 3'),
-              onPressed: () {
-                //...
-                print('Answer 3 chosen');
-              },
-            ),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              //'...' is the spread operator: adds each element of the list to the surrounding list as individual values
+              //for every answer at questions[i] we want to return a new widget
+              return Answer(_answerQuestion, answer);
+            }).toList()
           ],
         ),
       ),

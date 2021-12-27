@@ -149,9 +149,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				97C146ED1CF9000F007C117D /* Runner */,
-			);
-		};
+				97C146ED1CF9000F007C117D /* Runner */;
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
